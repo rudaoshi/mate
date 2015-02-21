@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+Class-Path: opennlp-maxent-3.0.2-incubating.jar liblinear-1.51-with-de
+ ps.jar whatswrong-0.2.3.jar anna-3.3.jar seg.jar stanford-parser.jar 
+ opennlp-tools-1.5.2-incubating.jar
+Main-Class: com.knowlege_frontier.service.srl.socket.SRLSocketServer
+
