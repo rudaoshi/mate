@@ -9,4 +9,4 @@ A republishment of awesome mate tools (https://code.google.com/p/mate-tools/).
 ## Models
 Currently only chinese models are prepared. 
 
-You can download the packed chinese model from   and unzip it  and place it besides the bin folder. 
+You can download the packed chinese model from  http://pan.baidu.com/s/1bnfIk8J and unzip it  and place it besides the bin folder. 
