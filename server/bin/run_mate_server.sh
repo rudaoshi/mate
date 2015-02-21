@@ -28,8 +28,8 @@ PORT=8072 #The port to listen on
 ##################################################
 JAVA="java" #Edit this i you want to use a specific java binary.
 MEM="4g" #Memory for the JVM, might need to be increased for large corpora.
-DIST_ROOT=`dirname $0`/..
-for jar in ${DIST_ROOT}/lib/*.jar; do
+BIN_ROOT=`dirname $0`
+for jar in $BIN_ROOT/*.jar; do
 #    echo $jar
     CP=${CP}:$jar
 done
