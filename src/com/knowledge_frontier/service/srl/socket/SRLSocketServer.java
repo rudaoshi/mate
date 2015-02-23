@@ -17,10 +17,14 @@ import java.io.*;
 import java.net.*;
 
 
+import org.zeromq.ZMQ;
+
+
 public class SRLSocketServer {
 
 
     public static void main(String[] args) throws Exception{
+
 
         SRLSocketServerOptions options=new SRLSocketServerOptions();
         options.parseCmdLineArgs(args);
@@ -34,35 +38,34 @@ public class SRLSocketServer {
 
         CompletePipeline pipeline=CompletePipeline.getCompletePipeline(options);
 
-        String clientSentence;
-        String capitalizedSentence;
-        ServerSocket welcomeSocket = new ServerSocket(options.port);
+        ZMQ.Context context = ZMQ.context(1);
+        //  Socket to talk to clients
+        ZMQ.Socket responder = context.socket(ZMQ.REP);
+        responder.bind("tcp://*:" + Integer.toString(options.port));
 
         System.out.println("Server is started.");
 
-        while(true) {
-            Socket connectionSocket = welcomeSocket.accept();
-            BufferedReader inFromClient = new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
-            BufferedWriter outToClient = new BufferedWriter(new OutputStreamWriter(connectionSocket.getOutputStream()));
-            parseNonSegmentedLineByLine(pipeline,inFromClient,outToClient);
+        while (!Thread.currentThread().isInterrupted()) {
+            // Wait for next request from the client
+            String[] raw_sentences = responder.recv(0).toString().split("\n");
+
+            String result = new String();
+            for (String raw_sentence: raw_sentences)
+            {
+                Sentence s=pipeline.parse(raw_sentence);
+                result += s.toString();
+                result += "\n\n";
+
+            }
+
+            responder.send(result.toString().getBytes(), 0);
         }
+        responder.close();
+        context.term();
+
 
     }
 
-    private static void parseNonSegmentedLineByLine(CompletePipeline pipeline, BufferedReader in, BufferedWriter writer)	throws IOException, Exception {
-        int senCount=0;
-        String str;
-
-        while((str=in.readLine()) != null){
-            Sentence s=pipeline.parse(str);
-            writer.write(s.toString());
-            senCount++;
-
-        }
-
-        System.out.println("Processing sentence: "+senCount); //TODO, same as below.
-
-    }
 
 }
 
