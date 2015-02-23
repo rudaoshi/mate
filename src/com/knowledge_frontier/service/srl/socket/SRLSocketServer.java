@@ -1,4 +1,4 @@
-package com.knowlege_frontier.service.srl.socket;
+package com.knowledge_frontier.service.srl.socket;
 
 /**
  * Created by Sun on 15/2/22.
@@ -37,6 +37,8 @@ public class SRLSocketServer {
         String clientSentence;
         String capitalizedSentence;
         ServerSocket welcomeSocket = new ServerSocket(options.port);
+
+        System.out.println("Server is started.");
 
         while(true) {
             Socket connectionSocket = welcomeSocket.accept();

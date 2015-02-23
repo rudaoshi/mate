@@ -1,12 +1,10 @@
-package com.knowlege_frontier.service.srl.socket;
+package com.knowledge_frontier.service.srl.socket;
 
 /**
  * Created by Sun on 15/2/22.
  */
 
 import se.lth.cs.srl.options.FullPipelineOptions;
-
-import com.knowlege_frontier.service.srl.socket.SRLSocketServer;
 
 
 public class SRLSocketServerOptions extends FullPipelineOptions {
