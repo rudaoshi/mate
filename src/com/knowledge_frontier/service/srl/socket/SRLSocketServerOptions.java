@@ -14,7 +14,7 @@ public class SRLSocketServerOptions extends FullPipelineOptions {
     public int port = 8080;
 
     public SRLSocketServerOptions(){
-        super.loadPreprocessorWithTokenizer=false; //We think default is CoNLL09 corpus,
+        super.loadPreprocessorWithTokenizer=true; //We think default is CoNLL09 corpus,
         super.skipPI = false;
     }
 

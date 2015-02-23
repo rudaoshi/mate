@@ -15,6 +15,7 @@ import java.io.InputStreamReader;
 
 import java.io.*;
 import java.net.*;
+import java.nio.charset.Charset;
 
 
 import org.zeromq.ZMQ;
@@ -47,18 +48,25 @@ public class SRLSocketServer {
 
         while (!Thread.currentThread().isInterrupted()) {
             // Wait for next request from the client
-            String[] raw_sentences = responder.recv(0).toString().split("\n");
+
+            String received_message = new String(responder.recv(0), Charset.forName("UTF-8"));
+            System.out.println(received_message);
+
+            String[] raw_sentences = received_message.split("\n");
 
             String result = new String();
             for (String raw_sentence: raw_sentences)
             {
+                System.out.println(raw_sentence);
                 Sentence s=pipeline.parse(raw_sentence);
                 result += s.toString();
                 result += "\n\n";
 
             }
 
-            responder.send(result.toString().getBytes(), 0);
+            System.out.println(result);
+
+            responder.send(result.getBytes(Charset.forName("UTF-8")), 0);
         }
         responder.close();
         context.term();

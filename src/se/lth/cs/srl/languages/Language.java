@@ -68,7 +68,9 @@ public abstract class Language {
 	public abstract String getLexiconURL(Predicate pred);
 	
 	public Preprocessor getPreprocessor(FullPipelineOptions options) throws IOException {
+
 		Tokenizer tokenizer=(options.loadPreprocessorWithTokenizer ? getTokenizer(options.tokenizer): null);
+
 		Lemmatizer lemmatizer=getLemmatizer(options.lemmatizer);
 		Tagger tagger=options.tagger==null?null:BohnetHelper.getTagger(options.tagger);
 		is2.mtag.Tagger mtagger=options.morph==null?null:BohnetHelper.getMTagger(options.morph);

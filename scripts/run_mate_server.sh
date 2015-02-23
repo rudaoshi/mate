@@ -11,8 +11,8 @@
 ##################################################
 ## (1) The following needs to be set appropriately
 ##################################################
-Lang="chi"
-MODELDIR=`dirname $0`/../models/${Lang}/
+LANG="chi"
+MODELDIR=`dirname $0`/../models/${LANG}/
 #TOKENIZER_MODEL=${MODELDIR}/en-token.bin #If tokenizer is blank, it will use some default (Stanford for English, Exner for Swedish, and whitespace otherwise)
 TOKENIZER_MODEL=${MODELDIR}/segmenter  #Use this for chinese.
 #LEMMATIZER_MODEL=${MODELDIR}/CoNLL2009-ST-English-ALL.anna-3.3.lemmatizer.model
@@ -43,7 +43,7 @@ JVM_ARGS="-Djava.awt.headless=true -cp $CP -Xmx$MEM"
 #RERANKER="-reranker" #Uncomment this if you want to use a reranker too. The model is assumed to contain a reranker. While training, the corresponding parameter has to be provided.
 PORT=8090
 
-CMD="$JAVA $JVM_ARGS com.knowledge_frontier.service.srl.socket.SRLSocketServer $Lang $RERANKER -port $PORT -tagger $POS_MODEL -parser $PARSER_MODEL -srl $SRL_MODEL -port $PORT"
+CMD="$JAVA $JVM_ARGS com.knowledge_frontier.service.srl.socket.SRLSocketServer $LANG $RERANKER -port $PORT -tagger $POS_MODEL -parser $PARSER_MODEL -srl $SRL_MODEL -port $PORT"
 
 if [ "$TOKENIZER_MODEL" != "" ]; then
     CMD=${CMD}" -token $TOKENIZER_MODEL"
